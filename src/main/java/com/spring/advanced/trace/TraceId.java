@@ -1,4 +1,4 @@
-package com.spring.trace;
+package com.spring.advanced.trace;
 
 import java.util.UUID;
 

@@ -1,10 +1,8 @@
 package com.spring.trace.helloTrace;
 
-import com.spring.trace.TraceStatus;
+import com.spring.advanced.trace.TraceStatus;
+import com.spring.advanced.trace.helloTrace.HelloTraceV1;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.sql.init.dependency.AbstractBeansOfTypeDatabaseInitializerDetector;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HelloTraceV1Test {
 
@@ -20,6 +18,16 @@ class HelloTraceV1Test {
         HelloTraceV1 trace = new HelloTraceV1();
         TraceStatus status = trace.begin("hello");
         trace.exception(status, new IllegalStateException());
+    }
+
+    @Test
+    public void test1() throws Exception {
+        HelloTraceV1 trace = new HelloTraceV1();
+        TraceStatus status = trace.begin("hello");
+        status.getTraceId().createNextId();
+        status.getTraceId().createNextId();
+        status.getTraceId().createNextId();
+        trace.end(status);
     }
 
 }
