@@ -1,25 +1,26 @@
-package com.spring.advanced.app.v2;
+package com.spring.advanced.app.v3;
 
 
 import com.spring.advanced.trace.TraceId;
 import com.spring.advanced.trace.TraceStatus;
 import com.spring.advanced.trace.helloTrace.HelloTraceV2;
+import com.spring.advanced.trace.logtrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceV2 {
+public class OrderServiceV3 {
 
-    private final OrderRepositoryV2 orderRepository;
-    private final HelloTraceV2 trace;
+    private final OrderRepositoryV3 orderRepository;
+    private final LogTrace trace;
 
-    public void orderItem(TraceId traceId, String itemId) {
+    public void orderItem(String itemId) {
 
         TraceStatus status = null;
         try {
-            status = trace.beginSync(traceId,"OrderServiceV1.orderItem()");
-            orderRepository.save(status.getTraceId(), itemId);
+            status = trace.begin("OrderServiceV1.orderItem()");
+            orderRepository.save(itemId);
             trace.end(status);
 
         } catch (Exception e) {
